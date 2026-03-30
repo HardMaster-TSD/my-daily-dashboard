@@ -27,35 +27,10 @@
 }
 
 /* ===========================
-   深色模式 - 手动切换
-   =========================== */
-[data-theme="dark"] {
-  --bg: #0f0f1a;
-  --card-bg: #1a1a2e;
-  --text-primary: #f5f5f7;
-  --text-secondary: #9ca3af;
-  --accent: #818cf8;
-  --accent-soft: #1e1b4b;
-  --positive: #34d399;
-  --negative: #f87171;
-  --border: rgba(255,255,255,0.1);
-  --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
-  --card-icon-bg: #2d2d44;
-  --weather-icon-bg: #2d2d44;
-  --rank-1-bg: #3d2e00;
-  --rank-1-color: #fbbf24;
-  --rank-2-bg: #2d2d44;
-  --rank-2-color: #9ca3af;
-  --rank-3-bg: #3d2e00;
-  --rank-3-color: #fbbf24;
-}
-
-/* ===========================
-   深色模式 - 系统偏好（无手动选择时）
+   深色模式 - 系统偏好
    =========================== */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root {
     --bg: #0f0f1a;
     --card-bg: #1a1a2e;
     --text-primary: #f5f5f7;
@@ -84,10 +59,15 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 /* 滚动条优化 */
-::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(128,128,128,0.3); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(128,128,128,0.5); }
+::-webkit-scrollbar-thumb {
+  background: rgba(128,128,128,0.25);
+  border-radius: 10px;
+  padding: 2px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(128,128,128,0.4); }
+::-webkit-scrollbar-corner { background: transparent; }
 
 body {
   font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;

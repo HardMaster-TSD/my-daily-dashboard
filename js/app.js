@@ -4,11 +4,7 @@
 
 function $(id) { return document.getElementById(id); }
 
-// ---- 主题检测（自动跟随系统）----
-function applyTheme() {
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
-}
+// 主题跟随系统，由 CSS @media (prefers-color-scheme) 自动处理，无需 JS
 
 // ---- 时间 & 问候 ----
 function setTime() {
@@ -149,7 +145,6 @@ async function refreshAll() {
 
 // ---- 初始化 ----
 document.addEventListener('DOMContentLoaded', () => {
-  applyTheme();
   setTime();
   refreshAll();
 });
