@@ -4,54 +4,10 @@
 
 function $(id) { return document.getElementById(id); }
 
-// ---- 主题切换 ----
-function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
-  setTheme(next);
-  saveTheme(next);
-}
-
-function setTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  $('themeIcon').textContent = theme === 'dark' ? '☀️' : '🌙';
-}
-
-function saveTheme(theme) {
-  try {
-    localStorage.setItem('theme', theme);
-  } catch (e) {
-    // 飞书等 webview 不支持 localStorage，用 cookie
-    document.cookie = 'theme=' + theme + ';path=/;max-age=31536000';
-  }
-}
-
-function loadTheme() {
-  // 优先 localStorage
-  try {
-    const saved = localStorage.getItem('theme');
-    if (saved) return saved;
-  } catch (e) {}
-  // 失败则读 cookie
-  const match = document.cookie.match(/theme=(dark|light)/);
-  if (match) return match[1];
-  // 都没有则检测系统偏好
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return 'dark';
-  }
-  return null;
-}
-
-function initTheme() {
-  const saved = loadTheme();
-  if (saved) {
-    setTheme(saved);
-  } else {
-    // 首次访问默认跟随系统
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setTheme('dark');
-    }
-  }
+// ---- 主题检测（自动跟随系统）----
+function applyTheme() {
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
 }
 
 // ---- 时间 & 问候 ----
@@ -193,7 +149,7 @@ async function refreshAll() {
 
 // ---- 初始化 ----
 document.addEventListener('DOMContentLoaded', () => {
-  initTheme();
+  applyTheme();
   setTime();
   refreshAll();
 });
