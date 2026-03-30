@@ -4,6 +4,26 @@
 
 function $(id) { return document.getElementById(id); }
 
+// ---- 主题切换 ----
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  setTheme(next);
+  localStorage.setItem('theme', next);
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  $('themeIcon').textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+function initTheme() {
+  const saved = localStorage.getItem('theme');
+  if (saved) {
+    setTheme(saved);
+  }
+}
+
 // ---- 时间 & 问候 ----
 function setTime() {
   const now = new Date();
@@ -101,6 +121,7 @@ async function refreshAll() {
 
 // ---- 初始化 ----
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   setTime();
   refreshAll();
 });
