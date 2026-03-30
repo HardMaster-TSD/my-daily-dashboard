@@ -5,68 +5,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>资讯大盘</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="container">
     <!-- Header -->
     <header class="header">
-      <div class="date" id="currentDate"></div>
-      <h1 class="greeting" id="greeting"></h1>
+      <div class="date" id="currentDate">2026年3月31日 星期二</div>
+      <h1 class="greeting" id="greeting">下午好</h1>
     </header>
 
     <!-- Weather Card -->
-    <section class="weather-card" id="weatherCard">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon" style="background:#fef3c7">☀️</div>
+        <span class="card-title">天气预报</span>
+      </div>
       <div class="weather-main">
-        <div class="weather-icon" id="weatherIcon">☀️</div>
-        <div class="weather-temp" id="weatherTemp">--°</div>
-        <div class="weather-desc" id="weatherDesc">加载中...</div>
+        <div class="weather-icon-bg" style="background:#fffbeb">☀️</div>
+        <div class="weather-info">
+          <div class="weather-temp" id="weatherTemp">--°</div>
+          <div class="weather-desc" id="weatherDesc">加载中...</div>
+        </div>
+        <div class="weather-sub">
+          <span id="weatherLocation">--</span>
+          <span id="weatherAQI">--</span>
+        </div>
       </div>
-      <div class="weather-details">
-        <span id="weatherLocation">--</span>
-        <span id="weatherAQI">--</span>
-      </div>
-    </section>
+    </div>
 
     <!-- Stock Card -->
-    <section class="stock-card" id="stockCard">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon" style="background:#dbeafe">📈</div>
+        <span class="card-title">股票行情</span>
+      </div>
       <div class="stock-header">
-        <span class="stock-name">比亚迪 (SZ002594)</span>
-        <span class="stock-time" id="stockTime">--:--</span>
+        <div>
+          <div class="stock-name">比亚迪 SZ002594</div>
+          <div class="stock-time" id="stockTime">--:-- 更新</div>
+        </div>
+        <div class="stock-tag down" id="stockTag">--%</div>
       </div>
-      <div class="stock-price" id="stockPrice">--.--</div>
-      <div class="stock-change" id="stockChange">--%</div>
-    </section>
+      <div class="stock-body">
+        <div class="stock-price" id="stockPrice">--.--</div>
+      </div>
+    </div>
 
-    <!-- Hot Topics -->
-    <section class="topics-section">
-      <h2 class="section-title">今日热点</h2>
-      <div class="topics-list" id="topicsList">
-        <div class="topic-item skeleton">
-          <div class="skeleton-line w-80"></div>
-          <div class="skeleton-line w-60"></div>
+    <!-- Topics Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon" style="background:#fce7f3">🔥</div>
+        <span class="card-title">今日热点</span>
+      </div>
+      <div class="topic-list" id="topicList">
+        <div class="topic-item">
+          <div class="topic-rank">1</div>
+          <div class="topic-content">
+            <div class="skeleton-line w-60"></div>
+            <div class="skeleton-line w-40"></div>
+          </div>
         </div>
-        <div class="topic-item skeleton">
-          <div class="skeleton-line w-70"></div>
-          <div class="skeleton-line w-50"></div>
+        <div class="topic-item">
+          <div class="topic-rank">2</div>
+          <div class="topic-content">
+            <div class="skeleton-line w-60"></div>
+            <div class="skeleton-line w-40"></div>
+          </div>
         </div>
-        <div class="topic-item skeleton">
-          <div class="skeleton-line w-75"></div>
-          <div class="skeleton-line w-55"></div>
+        <div class="topic-item">
+          <div class="topic-rank">3</div>
+          <div class="topic-content">
+            <div class="skeleton-line w-60"></div>
+            <div class="skeleton-line w-40"></div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- Refresh Button -->
     <button class="refresh-btn" id="refreshBtn" onclick="refreshAll()">
       <span class="refresh-icon">↻</span>
-      刷新
+      刷新内容
     </button>
   </div>
 
   <footer class="footer">
-    <span>最后更新: <span id="lastUpdate">--:--:--</span></span>
+    最后更新: <span id="lastUpdate">--:--:--</span>
   </footer>
 
   <script src="js/app.js"></script>
