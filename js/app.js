@@ -9,7 +9,7 @@ function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
   setTheme(next);
-  localStorage.setItem('theme', next);
+  saveTheme(next);
 }
 
 function setTheme(theme) {
@@ -17,8 +17,28 @@ function setTheme(theme) {
   $('themeIcon').textContent = theme === 'dark' ? '☀️' : '🌙';
 }
 
+function saveTheme(theme) {
+  try {
+    localStorage.setItem('theme', theme);
+  } catch (e) {
+    // 飞书等 webview 不支持 localStorage，用 cookie
+    document.cookie = 'theme=' + theme + ';path=/;max-age=31536000';
+  }
+}
+
+function loadTheme() {
+  // 优先 localStorage
+  try {
+    const saved = localStorage.getItem('theme');
+    if (saved) return saved;
+  } catch (e) {}
+  // 失败则读 cookie
+  const match = document.cookie.match(/theme=(dark|light)/);
+  return match ? match[1] : null;
+}
+
 function initTheme() {
-  const saved = localStorage.getItem('theme');
+  const saved = loadTheme();
   if (saved) {
     setTheme(saved);
   }
