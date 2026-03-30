@@ -34,13 +34,23 @@ function loadTheme() {
   } catch (e) {}
   // 失败则读 cookie
   const match = document.cookie.match(/theme=(dark|light)/);
-  return match ? match[1] : null;
+  if (match) return match[1];
+  // 都没有则检测系统偏好
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  }
+  return null;
 }
 
 function initTheme() {
   const saved = loadTheme();
   if (saved) {
     setTheme(saved);
+  } else {
+    // 首次访问默认跟随系统
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setTheme('dark');
+    }
   }
 }
 

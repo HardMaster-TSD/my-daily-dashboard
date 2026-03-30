@@ -2,7 +2,7 @@
    基石变量 - 浅色模式（默认）
    =========================== */
 :root,
-[data-theme="light"] {
+:not([data-theme]) {
   --bg: #f0f2f5;
   --card-bg: #ffffff;
   --text-primary: #1a1a2e;
@@ -27,7 +27,7 @@
 }
 
 /* ===========================
-   深色模式
+   深色模式 - 手动切换
    =========================== */
 [data-theme="dark"] {
   --bg: #0f0f1a;
@@ -52,28 +52,41 @@
 }
 
 /* ===========================
+   深色模式 - 系统偏好（无手动选择时）
+   =========================== */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f0f1a;
+    --card-bg: #1a1a2e;
+    --text-primary: #f5f5f7;
+    --text-secondary: #9ca3af;
+    --accent: #818cf8;
+    --accent-soft: #1e1b4b;
+    --positive: #34d399;
+    --negative: #f87171;
+    --border: rgba(255,255,255,0.1);
+    --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+    --card-icon-bg: #2d2d44;
+    --weather-icon-bg: #2d2d44;
+    --rank-1-bg: #3d2e00;
+    --rank-1-color: #fbbf24;
+    --rank-2-bg: #2d2d44;
+    --rank-2-color: #9ca3af;
+    --rank-3-bg: #3d2e00;
+    --rank-3-color: #fbbf24;
+  }
+}
+
+/* ===========================
    通用重置 & 滚动条
    =========================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* 自定义滚动条 */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
-}
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
 
 body {
   font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -84,19 +97,12 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
-.container {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 16px 16px 90px;
-}
+.container { max-width: 480px; margin: 0 auto; padding: 16px 16px 90px; }
 
 /* ===========================
    头部
    =========================== */
-.header {
-  text-align: center;
-  padding: 20px 0 24px;
-}
+.header { text-align: center; padding: 20px 0 24px; }
 
 .header-top {
   display: flex;
@@ -129,13 +135,8 @@ body {
   box-shadow: var(--shadow);
 }
 
-.theme-btn:hover {
-  background: var(--accent-soft);
-}
-
-.theme-btn:active {
-  transform: scale(0.9);
-}
+.theme-btn:hover { background: var(--accent-soft); }
+.theme-btn:active { transform: scale(0.9); }
 
 .greeting {
   font-size: 26px;
@@ -146,7 +147,7 @@ body {
 }
 
 /* ===========================
-   卡片系统
+   卡片
    =========================== */
 .card {
   background: var(--card-bg);
@@ -155,7 +156,7 @@ body {
   padding: 20px;
   margin-bottom: 14px;
   border: 1px solid transparent;
-  transition: background 0.3s, box-shadow 0.3s, border-color 0.3s;
+  transition: background 0.3s, box-shadow 0.3s;
 }
 
 .card-header {
@@ -188,7 +189,7 @@ body {
 }
 
 /* ===========================
-   天气卡片
+   天气
    =========================== */
 .weather-icon-bg {
   width: 64px;
@@ -203,12 +204,7 @@ body {
   transition: background 0.3s;
 }
 
-.weather-main {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
+.weather-main { display: flex; align-items: center; gap: 16px; }
 .weather-info { flex: 1; }
 
 .weather-temp {
@@ -220,12 +216,7 @@ body {
   transition: color 0.3s;
 }
 
-.weather-desc {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-top: 4px;
-  transition: color 0.3s;
-}
+.weather-desc { font-size: 14px; color: var(--text-secondary); margin-top: 4px; transition: color 0.3s; }
 
 .weather-sub {
   display: flex;
@@ -238,13 +229,9 @@ body {
 }
 
 /* ===========================
-   话题卡片
+   话题列表
    =========================== */
-.topic-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
+.topic-list { display: flex; flex-direction: column; gap: 2px; }
 
 .topic-item {
   display: flex;
@@ -256,9 +243,7 @@ body {
   transition: background 0.15s;
 }
 
-.topic-item:hover {
-  background: var(--bg);
-}
+.topic-item:hover { background: var(--bg); }
 
 .topic-rank {
   width: 22px;
@@ -292,12 +277,7 @@ body {
   transition: color 0.3s;
 }
 
-.topic-meta {
-  font-size: 11px;
-  color: var(--text-secondary);
-  margin-top: 4px;
-  transition: color 0.3s;
-}
+.topic-meta { font-size: 11px; color: var(--text-secondary); margin-top: 4px; transition: color 0.3s; }
 
 /* ===========================
    骨架屏
@@ -339,13 +319,8 @@ body {
   transition: all 0.2s;
 }
 
-.refresh-btn:hover {
-  background: var(--accent-soft);
-}
-
-.refresh-btn:active {
-  transform: scale(0.98);
-}
+.refresh-btn:hover { background: var(--accent-soft); }
+.refresh-btn:active { transform: scale(0.98); }
 
 .refresh-icon { font-size: 18px; display: inline-block; }
 .refresh-btn.loading .refresh-icon { animation: spin 1s linear infinite; }
