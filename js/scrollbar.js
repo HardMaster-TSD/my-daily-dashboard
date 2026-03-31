@@ -8,36 +8,40 @@
     .mp-wrap {
       position: fixed;
       top: 50%;
-      right: 6px;
+      right: 8px;
       transform: translateY(-50%);
-      width: 8px;
-      height: 70px;
+      width: 6px;
+      height: 50px;
       z-index: 9999;
       pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
     .mp-track {
       position: absolute;
       left: 0;
       top: 0;
-      width: 8px;
+      width: 6px;
       height: 100%;
-      background: rgba(128, 128, 128, 0.15);
-      border-radius: 4px;
+      background: rgba(150, 150, 150, 0.2);
+      border-radius: 3px;
     }
     .mp-thumb {
       position: absolute;
-      left: 0;
+      left: -1px;
       width: 8px;
+      height: 18px;
       border-radius: 4px;
-      background: rgba(100, 100, 100, 0.5);
+      background: rgba(120, 120, 120, 0.55);
       cursor: pointer;
       pointer-events: all;
       transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
     .mp-thumb:hover,
     .mp-thumb.dragging {
-      background: rgba(80, 80, 80, 0.7);
-      transform: scaleX(1.2);
+      background: rgba(100, 100, 100, 0.75);
+      transform: scaleX(1.3);
     }
     .mp-hidden { opacity: 0 !important; pointer-events: none; }
   `;
@@ -64,11 +68,10 @@
       const scrollHeight = doc.scrollHeight;
       const clientHeight = doc.clientHeight;
       const scrollRatio = scrollHeight > clientHeight ? scrollTop / (scrollHeight - clientHeight) : 0;
-      const trackHeight = 70;
-      const thumbHeight = 25;
+      const trackHeight = 50;
+      const thumbHeight = 18;
       const maxTop = trackHeight - thumbHeight;
 
-      thumb.style.height = thumbHeight + 'px';
       thumb.style.top = scrollRatio * maxTop + 'px';
       wrap.style.opacity = scrollHeight > clientHeight ? '1' : '0';
     }
