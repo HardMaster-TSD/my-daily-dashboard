@@ -14,7 +14,7 @@
       transform: translateY(-50%);
       z-index: 9999;
       pointer-events: none;
-      opacity: 0;
+      opacity: 1;
       transition: opacity 0.3s;
     }
     .cs-track {
