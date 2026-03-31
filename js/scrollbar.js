@@ -7,36 +7,37 @@
   const CSS = `
     .mp-wrap {
       position: fixed;
-      top: 0;
-      right: 0;
-      width: 6px;
-      height: 100vh;
+      top: 50%;
+      right: 6px;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 70px;
       z-index: 9999;
       pointer-events: none;
     }
     .mp-track {
       position: absolute;
-      right: 0;
+      left: 0;
       top: 0;
-      width: 6px;
+      width: 8px;
       height: 100%;
-      background: transparent;
+      background: rgba(128, 128, 128, 0.15);
+      border-radius: 4px;
     }
     .mp-thumb {
       position: absolute;
-      right: 0;
-      width: 6px;
-      border-radius: 3px;
-      background: rgba(128, 128, 128, 0.4);
+      left: 0;
+      width: 8px;
+      border-radius: 4px;
+      background: rgba(100, 100, 100, 0.5);
       cursor: pointer;
       pointer-events: all;
-      transition: background 0.2s, width 0.2s, right 0.2s;
+      transition: background 0.2s, transform 0.15s;
     }
     .mp-thumb:hover,
     .mp-thumb.dragging {
-      background: rgba(128, 128, 128, 0.6);
-      width: 8px;
-      right: -1px;
+      background: rgba(80, 80, 80, 0.7);
+      transform: scaleX(1.2);
     }
     .mp-hidden { opacity: 0 !important; pointer-events: none; }
   `;
@@ -62,10 +63,10 @@
       const scrollTop = doc.scrollTop;
       const scrollHeight = doc.scrollHeight;
       const clientHeight = doc.clientHeight;
-      const ratio = clientHeight / scrollHeight;
-      const thumbHeight = Math.max(30, clientHeight * ratio * 0.8);
-      const maxTop = clientHeight - thumbHeight;
       const scrollRatio = scrollHeight > clientHeight ? scrollTop / (scrollHeight - clientHeight) : 0;
+      const trackHeight = 70;
+      const thumbHeight = 25;
+      const maxTop = trackHeight - thumbHeight;
 
       thumb.style.height = thumbHeight + 'px';
       thumb.style.top = scrollRatio * maxTop + 'px';
