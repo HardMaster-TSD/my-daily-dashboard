@@ -7,35 +7,40 @@
   const CSS = `
     .cs-wrap {
       position: fixed;
-      top: 0;
-      right: 0;
-      width: 6px;
-      height: 100vh;
+      top: 50%;
+      right: 6px;
+      width: 10px;
+      height: 100px;
+      transform: translateY(-50%);
       z-index: 9999;
       pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
     .cs-track {
       position: absolute;
-      right: 0;
+      left: 0;
       top: 0;
-      width: 6px;
+      width: 10px;
       height: 100%;
-      background: rgba(128,128,128,0.08);
-      border-radius: 10px;
+      background: rgba(128,128,128,0.15);
+      border-radius: 5px;
     }
     .cs-thumb {
       position: absolute;
-      right: 0;
-      width: 6px;
-      border-radius: 10px;
-      background: rgba(128,128,128,0.35);
+      left: 0;
+      width: 10px;
+      border-radius: 5px;
+      background: linear-gradient(180deg, rgba(160,160,160,0.6), rgba(120,120,120,0.5));
       cursor: pointer;
       pointer-events: all;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
     .cs-thumb:hover,
     .cs-thumb.dragging {
-      background: rgba(128,128,128,0.55);
+      background: linear-gradient(180deg, rgba(180,180,180,0.7), rgba(140,140,140,0.6));
+      transform: scale(1.1);
     }
     .cs-hidden { opacity: 0 !important; }
   `;
@@ -64,8 +69,9 @@
       const scrollHeight = doc.scrollHeight;
       const clientHeight = doc.clientHeight;
       const ratio = clientHeight / scrollHeight;
-      const thumbHeight = Math.max(40, clientHeight * ratio);
-      const maxTop = clientHeight - thumbHeight;
+      const thumbHeight = Math.max(30, 100 * ratio);
+      const trackHeight = 100;
+      const maxTop = trackHeight - thumbHeight;
 
       thumb.style.height = thumbHeight + 'px';
       thumb.style.top = (scrollTop / (scrollHeight - clientHeight)) * maxTop + 'px';
